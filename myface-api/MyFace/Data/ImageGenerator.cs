@@ -32,7 +32,7 @@ namespace MyFace.Data
                 return null;
             }
 
-            return $"https://i.picsum.photos/id/{index}/{width}/{height}.jpg";
+            return $"https://picsum.photos/id/{index}/{width}/{height}";
         }
     }
 }

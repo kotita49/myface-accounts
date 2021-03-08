@@ -19,6 +19,11 @@ namespace MyFace.Models.Request
         [Required]
         [StringLength(70)]
         public string Username { get; set; }
+
+        [Required]
+         [DataType(DataType.Password)]  
+        [StringLength(30, ErrorMessage = "{0} must be between {2} and {1} characters.", MinimumLength = 8)]
+        public string Password { get; set; }
         
         public string ProfileImageUrl { get; set; }
         

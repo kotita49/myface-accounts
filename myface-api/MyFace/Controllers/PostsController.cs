@@ -16,12 +16,10 @@ namespace MyFace.Controllers
 {
     [ApiController]
     [Route("/posts")]
-    public class PostsController : ControllerBase
+    public class PostsController : BaseController
     {
         private readonly IPostsRepo _posts;
-        private readonly MyFaceDbContext _context;
-
-        public PostsController(IPostsRepo posts)
+        public PostsController(IPostsRepo posts, IUsersRepo users) : base(users)
         {
             _posts = posts;
         }
@@ -45,39 +43,38 @@ namespace MyFace.Controllers
         [HttpPost("create")]
         public IActionResult Create([FromBody] CreatePostRequest newPost)
         {
-            string authHeader = Request.Headers["Authorization"];
+            // string authHeader = Request.Headers["Authorization"];
 
-            if (authHeader == null || !authHeader.StartsWith("Basic")) {
-                var msg = new HttpResponseMessage(HttpStatusCode.InternalServerError) { ReasonPhrase = "The authorization header is either empty or isn't Basic." };
-                throw new HttpResponseException(msg);
-            }
+            // if (authHeader == null || !authHeader.StartsWith("Basic")) 
+            // {
+            //     return Unauthorized("401 Error: The authorization header is either empty or isn't Basic."); 
+            // }
 
-             // Extract credentials (get rid of "Basic ")
-            string encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
+            //  // Extract credentials (get rid of "Basic ")
+            // string encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
 
-            // decode it
-            Encoding encoding = Encoding.GetEncoding("iso-8859-1");
-            string usernamePassword = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
+            // // decode it
+            // Encoding encoding = Encoding.GetEncoding("iso-8859-1");
+            // string usernamePassword = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
 
-            // usernamePassword looks like username:password
-            int separatorIndex = usernamePassword.IndexOf(':');
-            string username = usernamePassword.Substring(0, separatorIndex);
-            string password = usernamePassword.Substring(separatorIndex + 1);
+            // // usernamePassword looks like username:password
+            // int separatorIndex = usernamePassword.IndexOf(':');
+            // string username = usernamePassword.Substring(0, separatorIndex);
+            // string password = usernamePassword.Substring(separatorIndex + 1);
+           
+            // var user = _users.GetByUsername(username);
 
-            var user = _context.Users.Single(user => user.Username == username);
+            // string HashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            //     password: password,
+            //     salt: Convert.FromBase64String(user.Salt),
+            //     prf: KeyDerivationPrf.HMACSHA1,
+            //     iterationCount: 10000,
+            //     numBytesRequested: 256 / 8));
 
-            string HashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: password,
-                salt: Convert.FromBase64String(user.Salt),
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8));
-
-            if (HashedPassword != user.Hashed_password) 
-            {
-                var msg = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Oops!!! That password isn't right." };
-                throw new HttpResponseException(msg);
-            }                     
+            // if (HashedPassword != user.Hashed_password) 
+            // {
+            //     return Unauthorized("401 Error: Oops!!! That password isn't right.");
+            // }                     
 
             if (!ModelState.IsValid)
             {

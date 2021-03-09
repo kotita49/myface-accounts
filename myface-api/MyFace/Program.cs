@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyFace.Data;
 using MyFace.Models.Database;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyFace
 {
@@ -19,6 +20,10 @@ namespace MyFace
             
             host.Run();
         }
+        // public static void Register(HttpConfiguration config)
+        // {
+        //     config.Filters.Add(new AuthorizeAttribute());
+        // }
 
         private static void CreateDbIfNotExists(IHost host)
         {
@@ -48,4 +53,6 @@ namespace MyFace
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
+
+    
 }

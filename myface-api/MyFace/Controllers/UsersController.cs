@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyFace.Models.Request;
 using MyFace.Models.Response;
 using MyFace.Repositories;
@@ -31,6 +32,7 @@ namespace MyFace.Controllers
             return new UserResponse(user);
         }
 
+        [AllowAnonymous]
         [HttpPost("create")]
         public IActionResult Create([FromBody] CreateUserRequest newUser)
         {

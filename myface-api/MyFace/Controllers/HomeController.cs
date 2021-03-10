@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using MyFace.Repositories;
 
 namespace MyFace.Controllers
 {
     [Microsoft.AspNetCore.Components.Route("")]
-    public class HomeController
+    public class HomeController : BaseController
     {
+        public HomeController(IUsersRepo users) : base(users) {
+            
+        }
+
         [HttpGet("")]
         public ActionResult<Dictionary<string, string>> Endpoints()
         {

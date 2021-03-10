@@ -1,6 +1,7 @@
 ﻿import React, {FormEvent, useContext, useState} from 'react';
 import {Page} from "../Page/Page";
 import {LoginContext} from "../../Components/LoginManager/LoginManager";
+import {User, AuthenticateLogin} from "../../Api/apiClient";
 import "./Login.scss";
 
 export function Login(): JSX.Element {
@@ -8,10 +9,15 @@ export function Login(): JSX.Element {
     
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    // const[]
     
     function tryLogin(event: FormEvent) {
         event.preventDefault();
-        loginContext.logIn();
+        var response = AuthenticateLogin(username, password).then(x => {
+            if (x.status == 200) {
+                loginContext.logIn(username, password);
+            }
+        });            
     }
     
     return (

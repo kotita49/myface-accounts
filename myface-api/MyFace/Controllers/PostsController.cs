@@ -43,39 +43,6 @@ namespace MyFace.Controllers
         [HttpPost("create")]
         public IActionResult Create([FromBody] CreatePostRequest newPost)
         {
-            // string authHeader = Request.Headers["Authorization"];
-
-            // if (authHeader == null || !authHeader.StartsWith("Basic")) 
-            // {
-            //     return Unauthorized("401 Error: The authorization header is either empty or isn't Basic."); 
-            // }
-
-            //  // Extract credentials (get rid of "Basic ")
-            // string encodedUsernamePassword = authHeader.Substring("Basic ".Length).Trim();
-
-            // // decode it
-            // Encoding encoding = Encoding.GetEncoding("iso-8859-1");
-            // string usernamePassword = encoding.GetString(Convert.FromBase64String(encodedUsernamePassword));
-
-            // // usernamePassword looks like username:password
-            // int separatorIndex = usernamePassword.IndexOf(':');
-            // string username = usernamePassword.Substring(0, separatorIndex);
-            // string password = usernamePassword.Substring(separatorIndex + 1);
-           
-            // var user = _users.GetByUsername(username);
-
-            // string HashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-            //     password: password,
-            //     salt: Convert.FromBase64String(user.Salt),
-            //     prf: KeyDerivationPrf.HMACSHA1,
-            //     iterationCount: 10000,
-            //     numBytesRequested: 256 / 8));
-
-            // if (HashedPassword != user.Hashed_password) 
-            // {
-            //     return Unauthorized("401 Error: Oops!!! That password isn't right.");
-            // }                     
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

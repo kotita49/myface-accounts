@@ -5,15 +5,15 @@ using MyFace.Repositories;
 
 namespace MyFace.Controllers
 {
-    public class InteractionsController
+    public class InteractionsController 
     {
         [ApiController]
         [Route("/interactions")]
-        public class UsersController : ControllerBase
+        public class UsersController : BaseController
         {
             private readonly IInteractionsRepo _interactions;
 
-            public UsersController(IInteractionsRepo interactions)
+            public UsersController(IInteractionsRepo interactions, IUsersRepo users) : base(users)
             {
                 _interactions = interactions;
             }

@@ -4,15 +4,16 @@ using MyFace.Models.Request;
 using MyFace.Models.Response;
 using MyFace.Repositories;
 
+
 namespace MyFace.Controllers
 {
     [ApiController]
     [Route("/users")]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
         private readonly IUsersRepo _users;
 
-        public UsersController(IUsersRepo users)
+        public UsersController(IUsersRepo users) : base(users)
         {
             _users = users;
         }

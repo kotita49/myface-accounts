@@ -65,9 +65,7 @@ namespace MyFace.Controllers
                     ReasonPhrase = "The password is incorrect."
                 };
                 throw new HttpResponseException(resp);
-            }    
-
-            // return Authorized();                 
+            }                
         }
     }
 }

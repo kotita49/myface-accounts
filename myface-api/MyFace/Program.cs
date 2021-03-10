@@ -20,10 +20,7 @@ namespace MyFace
             
             host.Run();
         }
-        // public static void Register(HttpConfiguration config)
-        // {
-        //     config.Filters.Add(new AuthorizeAttribute());
-        // }
+       
 
         private static void CreateDbIfNotExists(IHost host)
         {

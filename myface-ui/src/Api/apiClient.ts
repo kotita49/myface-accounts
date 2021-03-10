@@ -1,4 +1,7 @@
-﻿export interface ListResponse<T> {
+﻿import React, {useContext, ReactNode, useState} from "react";
+import {LoginContext} from '../Components/LoginManager/LoginManager';
+
+export interface ListResponse<T> {
     items: T[];
     totalNumberOfItems: number;
     page: number;
@@ -41,8 +44,23 @@ export interface NewPost {
 }
 
 export async function fetchUsers(searchTerm: string, page: number, pageSize: number): Promise<ListResponse<User>> {
-    const response = await fetch(`https://localhost:5001/users?search=${searchTerm}&page=${page}&pageSize=${pageSize}`);
+    const loginContext = useContext(LoginContext);
+    const response = await fetch(`https://localhost:5001/users?search=${searchTerm}&page=${page}&pageSize=${pageSize}`, {
+        headers: {
+            "Authorisation": `Basic ${loginContext.username}:${loginContext.password}`
+        }
+    });
     return await response.json();
+}
+
+export async function AuthenticateLogin(username: string, password: string): Promise<Response> {
+    const response = await fetch(`https://localhost:5001/login`, {
+        headers: {
+            "Authorization": `Basic ${btoa(`${username}:${password}`)}`
+        }
+    });
+
+    return await response;
 }
 
 export async function fetchUser(userId: string | number): Promise<User> {

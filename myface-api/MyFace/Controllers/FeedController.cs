@@ -6,11 +6,11 @@ using MyFace.Repositories;
 namespace MyFace.Controllers
 {
     [Route("feed")]
-    public class FeedController
+    public class FeedController : BaseController
     {
         private readonly IPostsRepo _posts;
 
-        public FeedController(IPostsRepo posts)
+        public FeedController(IPostsRepo posts, IUsersRepo users) : base(users)
         {
             _posts = posts;
         }
